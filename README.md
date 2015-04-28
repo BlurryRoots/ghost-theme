@@ -1,8 +1,8 @@
 # Ghost theme
 
-This theme is a customized version of [daleanthony.com](http://daleanthony.com) great uno theme, licensed under [Creative Commons Attribution 4.0 International](http://creativecommons.org/licenses/by/4.0/).
+This theme is a customized version of [daleanthony.com](http://daleanthony.com) great [uno theme](https://github.com/daleanthony/uno), licensed under [Creative Commons Attribution 4.0 International](http://creativecommons.org/licenses/by/4.0/).
 
-## Original Information provided by Dale Anthony
+## Original information provided by Dale Anthony
 
 **Responsive**
 Uno looks great on all devices, even those weird phablets that nobody buys.
