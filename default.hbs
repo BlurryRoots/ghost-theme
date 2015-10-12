@@ -53,8 +53,64 @@
     {{! Ghost Footer Magic }}
     {{ghost_foot}}
 
+
+    {{! --- MathJax integration --- (http://feynmanliang.com/mathjax-integration/)}}
     {{! The main JavaScript file for Casper }}
     <script type="text/javascript" src="{{asset "js/main.js"}}"></script>
+
+    {{! Fetch current MathJax}}
+    <script type="text/javascript" src="{{asset "js/MathJax.js"}}"></script>
+    {{! Setup Mathjax configuration}}
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+
+    {{! Prettyfier for MathJax syntax highlighting}}
+    <script type="text/javascript" src="{{asset "js/run_prettify.js"}}"></script>
+
+    {{! Re-render MathJax in live preview}}
+    <script>
+    var timeout,
+        entry = document.getElementsByClassName('entry-markdown')[0];
+
+    function mathjaxify()
+    {
+      var preview = document.getElementsByClassName('rendered-markdown')[0];
+      if (typeof(typeset) == "undefined" || typeset == true) {
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, preview]);  // renders mathjax if 'typeset' is true (or undefined)
+        typesetStubbornMath();
+      }
+
+      // Render the bits of math that have inexplicably still failed to render, while
+      // leaving the rest alone. (If you try to typeset the whole page, it will break
+      // other things)
+      function typesetStubbornMath() {
+        $(".MathJax_Preview").each( function() {
+            if($(this).text() != "") {
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, $(this).attr("id")]);
+            }
+        });
+      }
+    }
+
+    // Listen for Key Presses if on Editor
+    if(entry) {
+      jQuery(document).keypress(function(event) {
+          clearTimeout(timeout);
+            timeout = setTimeout(mathjaxify, 2001);
+      });
+    }
+
+    // Check for Change of Post Selection
+    setTimeout(function(){
+        jQuery('.content-list-content li').click(function() {
+            mathjaxify();
+        });
+    }, 500);
+    </script>
+    {{! --- MathJax integration --- (http://feynmanliang.com/mathjax-integration/)}}
 
     {{! Tracking script used by custom piwik installation }}
     <!-- Piwik -->
